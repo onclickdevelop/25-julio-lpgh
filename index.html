@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorpresa Especial - Inicio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe3ec, #ffc0cb);
+      color: #4d2c3d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #ffffffcc;
+      padding: 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #d6336c;
+    }
+
+    .qr-container {
+      margin-top: 2rem;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .qr-icon {
+      font-size: 4rem;
+      color: #d6336c;
+    }
+
+    .qr-container p {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>💌 Sorpresa Especial</h1>
+    <p>Muy pronto vivirás una experiencia<br>
+      llena de amor y momentos lindos 💖</p>
+    <div class="countdown" id="countdown">00:00:00</div>
+
+    <div class="qr-container" id="qrContainer">
+      <div class="qr-icon">📱</div>
+      <p>Muy pronto sabrás por dónde empezar...</p>
+    </div>
+  </div>
+
+  <script>
+    const objetivo = new Date("2025-07-26T16:00:00-05:00");
+
+    function actualizarContador() {
+      const ahora = new Date();
+      const diferencia = objetivo - ahora;
+
+      if (diferencia <= 0) {
+        document.getElementById("countdown").textContent = "¡Ya puedes comenzar! ✨";
+        document.getElementById("qrContainer").style.display = "flex";
+        return;
+      }
+
+      const horas = Math.floor(diferencia / 1000 / 60 / 60);
+      const minutos = Math.floor((diferencia / 1000 / 60) % 60);
+      const segundos = Math.floor((diferencia / 1000) % 60);
+
+      document.getElementById("countdown").textContent = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+    }
+
+    setInterval(actualizarContador, 1000);
+    actualizarContador();
+  </script>
+</body>
+
+</html>

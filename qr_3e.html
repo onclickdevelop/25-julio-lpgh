@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mil Días Contigo</title>
+  <style>
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #ffe3ec, #ffc0cb); color: #4d2c3d; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; position: relative; }
+    .container { background-color: #ffffffbb; padding: 2rem; border-radius: 2rem; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); max-width: 500px; animation: fadeIn 1.5s ease; position: relative; }
+    @keyframes fadeIn { from {opacity: 0; transform: scale(0.95);} to {opacity: 1; transform: scale(1);} }
+    h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    p { font-size: 1.2rem; margin-bottom: 1.5rem; }
+    .points { font-size: 3rem; font-weight: bold; color: #d6336c; margin-bottom: 1rem; }
+    .next { padding: 0.8rem 1.5rem; font-size: 1rem; background-color: #ff4d6d; color: white; border: none; border-radius: 1rem; cursor: pointer; transition: background 0.3s; }
+    .next:hover { background-color: #e0315b; }
+    .popup, .help-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); z-index: 1000; }
+    .overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 999; }
+    .close-btn { background: #ff4d6d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; margin-top: 1rem; cursor: pointer; }
+    .help-icon { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; background: #fff; border-radius: 50%; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="help-icon" onclick="mostrarAyuda()">?</div>
+    <h1>¡Pista 4 encontrada! 🌟</h1>
+    <p>Y este lugar está lleno de flores y de ti 🌸</p>
+    <div class="points">+150 días</div>
+    <button class="next" onclick="mostrarTotal()">Días acumulados 🧮</button>
+  </div>
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h2>Total de días acumulados 💖</h2>
+    <div id="totalDisplay" style="font-size: 2rem; margin: 1rem 0; color: #d6336c;"></div>
+    <button class="close-btn" onclick="cerrarPopup()">Cerrar</button>
+  </div>
+  <div class="help-popup" id="helpPopup">
+    <h2>¿Dónde estará el próximo QR? 🔍</h2>
+    <p id="helpMessage">Hoy es especial, así que prepárate para algo nuevo, único y lleno de amor.</p>
+    <button class="close-btn" onclick="cerrarPopup()">Cerrar</button>
+  </div>
+  <script>
+    let total = parseInt(localStorage.getItem("totalDias")) || 0;
+    const puntos = 150;
+    const key = "pista_4";
+    if (!localStorage.getItem(key)) {
+      total += puntos;
+      localStorage.setItem("totalDias", total);
+      localStorage.setItem(key, "true");
+    }
+    function mostrarTotal() {
+      document.getElementById("totalDisplay").textContent = `${total} días 💕`;
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("popup").style.display = "block";
+    }
+    function mostrarAyuda() {
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("helpPopup").style.display = "block";
+    }
+    function cerrarPopup() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("helpPopup").style.display = "none";
+    }
+  </script>
+</body>
+</html>

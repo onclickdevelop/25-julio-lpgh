@@ -73,20 +73,92 @@
       color: #555;
       margin-top: 0.5rem;
     }
+
+    /* Popup styles */
+    .help-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff0f6;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 2rem 1.5rem;
+      z-index: 1000;
+      max-width: 90vw;
+      width: 320px;
+      text-align: center;
+      animation: fadeIn 0.5s;
+    }
+
+    .help-popup h2 {
+      margin-top: 0;
+      color: #d6336c;
+    }
+
+    .close-btn {
+      margin-top: 1.5rem;
+      padding: 0.5rem 1.2rem;
+      background: #d6336c;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .close-btn:hover {
+      background: #a61e4d;
+    }
+
+    /* posicion centrada */
+    .hint-btn {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.5rem;
+      background: #ffb3c6;
+      color: #4d2c3d;
+      border: none;
+      border-radius: 0.7rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .hint-btn:hover {
+      background: #ff8fab;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
     <h1>💌 Sorpresa Especial</h1>
-    <p>Muy pronto vivirás una experiencia<br>
+
+    <!-- Se oculta cuando el cronómetro llegue a cero. -->
+    <p class="message">Muy pronto vivirás una experiencia<br>
       llena de amor y momentos lindos 💖</p>
+
     <div class="countdown" id="countdown">00:00:00</div>
 
     <div class="qr-container" id="qrContainer">
       <div class="qr-icon">📱</div>
-      <p>Muy pronto sabrás por dónde empezar...</p>
+      <p>Este juego te llevará a través de una serie de pistas y recuerdos compartidos. Cada QR que encuentres te dará
+        más
+        puntos y te acercará a la sorpresa final. ¡Buena suerte!</p>
     </div>
+
+    <!-- Botón para mostrar la pista solo cuando el cronómetro llegue a cero -->
+    <button class="hint-btn" style="display: none;" onclick="mostrarPopup()">Ver pista 🔍</button>
+  </div>
+
+  <!-- Popup de pista -->
+  <div class="help-popup" id="helpPopup">
+    <h2>¿Dónde estará el próximo QR? 🔍</h2>
+    <p id="helpMessage">Revisa en tu habitación un código QR.📱</p>
+    <button class="close-btn" onclick="cerrarPopup()">Cerrar</button>
   </div>
 
   <script>
@@ -99,6 +171,8 @@
       if (diferencia <= 0) {
         document.getElementById("countdown").textContent = "¡Ya puedes comenzar! ✨";
         document.getElementById("qrContainer").style.display = "flex";
+        document.querySelector(".message").style.display = "none";
+        document.querySelector(".hint-btn").style.display = "inline";
         return;
       }
 
@@ -111,6 +185,14 @@
 
     setInterval(actualizarContador, 1000);
     actualizarContador();
+
+    // Funciones para el popup de pista
+    function mostrarPopup() {
+      document.getElementById('helpPopup').style.display = 'block';
+    }
+    function cerrarPopup() {
+      document.getElementById('helpPopup').style.display = 'none';
+    }
   </script>
 </body>
 
